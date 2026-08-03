@@ -1,0 +1,33 @@
+name = "conecta-umadalpe-api"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ---- D1 Database ----
+# Crie com: npx wrangler d1 create conecta-umadalpe-db
+# Cole o database_id retornado abaixo.
+[[d1_databases]]
+binding = "DB"
+database_name = "conecta-umadalpe-db"
+database_id = "COLE_AQUI_O_DATABASE_ID"
+
+# ---- KV Namespace (contadores simples / cache) ----
+# Crie com: npx wrangler kv namespace create CACHE
+[[kv_namespaces]]
+binding = "CACHE"
+id = "COLE_AQUI_O_KV_ID"
+
+# ---- Durable Objects (tempo real: contadores + mosaico + SSE) ----
+[[durable_objects.bindings]]
+name = "REALTIME"
+class_name = "RealtimeRoom"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["RealtimeRoom"]
+
+# ---- Variáveis de ambiente ----
+[vars]
+CORS_ORIGIN = "*" # troque para o domínio do seu Cloudflare Pages em produção
+
+# Rate limiting básico é feito via KV (ver src/middleware/rateLimit.ts)

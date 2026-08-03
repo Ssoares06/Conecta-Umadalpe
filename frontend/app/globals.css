@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-brand-fog text-brand-bluedeep font-body;
+}
+
+/* Textura de "mosaico" no fundo — o motivo assinatura do projeto,
+   ecoando o Mosaico da Adoração exibido na TV. */
+.mosaic-texture {
+  background-image:
+    linear-gradient(135deg, rgba(30,58,138,0.06) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(251,191,36,0.06) 25%, transparent 25%);
+  background-size: 24px 24px;
+}
+
+.card-surface {
+  @apply bg-white rounded-2xl shadow-card;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
