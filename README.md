@@ -2,7 +2,7 @@
 
 > Acolhimento e união. Jovens com propósito. Permanecer conectado.
 
-Sistema de acolhimento e conexão para o Aniversário da UMADALPE de Maranguape II Baixo — check-in de caravanas com card digital, pedidos de oração, mosaico da adoração exibido na TV do templo, agenda pública e painel administrativo.
+Ferramenta de recepção para cultos da UMADALPE de Maranguape II Baixo: check-in de UMADALPEs visitantes e painel de projeção com os totais de chegada em tempo real.
 
 ## Stack
 
@@ -24,15 +24,10 @@ conecta-umadalpe/
 │       └── types.ts
 ├── frontend/           # Next.js (App Router)
 │   └── app/
-│       ├── page.tsx          # Home (6 cards)
-│       ├── checkin/          # Check-in da caravana + card digital
-│       ├── oracao/           # Pedido de oração
-│       ├── sobre/            # Conheça a UMADALPE
-│       ├── agenda/           # Agenda pública
-│       ├── contato/          # Fale Conosco
-│       ├── admin/            # Painel administrativo
-│       ├── tv/               # Painel da TV (modo apresentação)
-│       └── manutencao/       # Página de modo manutenção
+│       ├── page.tsx          # Entrada: check-in ou painel do culto
+│       ├── checkin/          # Check-in da UMADALPE visitante + card digital
+│       ├── culto/            # Painel para TV/projetor durante o culto
+│       └── admin/            # Consulta dos registros e exportação CSV
 └── schema.sql          # Schema do banco D1
 ```
 
@@ -90,11 +85,13 @@ npm run dev   # testar localmente em http://localhost:3000
 ### Deploy no Cloudflare Pages
 
 ```bash
-npm run pages:build
+npm install
 npm run pages:deploy
 ```
 
 Isso usa `@cloudflare/next-on-pages` para publicar o site em Cloudflare Pages. Na primeira execução, o Wrangler vai pedir para criar o projeto Pages — aceite o nome sugerido (`conecta-umadalpe`) ou escolha outro.
+
+**Não conecte este repositório a um projeto do tipo Worker Builds.** O repositório tem dois aplicativos, em pastas diferentes: `frontend` é um Pages e `workers` é a API. A conexão Git automática feita na raiz cria um terceiro projeto (`conecta-umadalpe`) e falha porque não existe `package.json` na raiz. Use os dois deploys acima/abaixo, ou configure separadamente o diretório raiz correto em cada projeto.
 
 Depois do deploy, configure a variável de ambiente `NEXT_PUBLIC_API_URL` também no painel do Cloudflare Pages (Settings → Environment variables), apontando para a URL do Worker, para que o build de produção use o valor correto.
 

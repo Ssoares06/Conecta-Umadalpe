@@ -13,7 +13,7 @@ const LEADERSHIP_FLAGS = [
 export default function CheckinPage() {
   const [form, setForm] = useState({
     umadalpeName: '',
-    hostUmadalpe: 'Maranguape II Baixo',
+    hostUmadalpe: '',
     hasDirigente: false,
     hasViceDirigente: false,
     secretariasCount: 0,
@@ -38,8 +38,8 @@ export default function CheckinPage() {
     e.preventDefault();
     setError('');
 
-    if (!form.umadalpeName.trim() || !form.membersCount) {
-      setError('Preencha o nome da UMADALPE e a quantidade de componentes.');
+    if (!form.umadalpeName.trim() || !form.hostUmadalpe.trim() || !form.membersCount) {
+      setError('Informe a UMADALPE, sua cidade/congregação e a quantidade de visitantes.');
       return;
     }
 
@@ -65,12 +65,12 @@ export default function CheckinPage() {
         <div className="rounded-3xl overflow-hidden shadow-card bg-gradient-to-br from-brand-blue via-brand-bluedeep to-black text-white p-6 aspect-[9/16] flex flex-col justify-between">
           <div>
             <p className="text-xs tracking-[0.3em] uppercase text-brand-gold font-semibold">Conecta UMADALPE</p>
-            <p className="text-xs text-white/60 mt-1">Aniversário UMADALPE Maranguape II Baixo</p>
+          <p className="text-xs text-white/60 mt-1">Visitante confirmada no culto</p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-white/70 mb-2">A UMADALPE</p>
+            <p className="text-sm text-white/70 mb-2">Bem-vinda, UMADALPE</p>
             <p className="font-display font-bold text-2xl leading-tight">{card.umadalpeName}</p>
-            <p className="text-sm text-white/70 mt-4 mb-1">chega com a palavra</p>
+            <p className="text-sm text-white/70 mt-4 mb-1">foi recebida com</p>
             <p className="font-display font-bold text-4xl text-brand-gold">{card.edificationWord}</p>
           </div>
           <p className="text-xs text-white/60 italic text-center">{card.verse}</p>
@@ -92,27 +92,27 @@ export default function CheckinPage() {
 
   return (
     <main className="min-h-screen px-5 pb-12 max-w-md mx-auto">
-      <Header title="Check-in da Caravana" />
+        <Header title="Check-in de visitante" />
       <p className="text-sm text-brand-gray mb-6 px-1">
-        Registre a chegada da sua UMADALPE e receba um card digital para compartilhar!
+        Registre a chegada da UMADALPE visitante. Esses dados aparecem imediatamente no painel do culto.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="block text-sm font-semibold text-brand-bluedeep mb-1.5" htmlFor="umadalpeName">
-            Nome da UMADALPE *
+            Nome da UMADALPE visitante *
           </label>
           <input
             id="umadalpeName"
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-base"
-            placeholder="Ex: UMADALPE Sede"
+            placeholder="Ex: UMADALPE Boa Vista"
             value={form.umadalpeName}
             onChange={(e) => setForm((f) => ({ ...f, umadalpeName: e.target.value }))}
           />
         </div>
 
         <div>
-          <span className="block text-sm font-semibold text-brand-bluedeep mb-2">Quem veio na direção?</span>
+          <span className="block text-sm font-semibold text-brand-bluedeep mb-2">A direção veio junto?</span>
           <div className="flex flex-wrap gap-2">
             {LEADERSHIP_FLAGS.map(({ key, label }) => (
               <button
@@ -173,14 +173,14 @@ export default function CheckinPage() {
 
         <div>
           <label className="block text-sm font-semibold text-brand-bluedeep mb-1.5" htmlFor="membersCount">
-            Quantidade de componentes *
+            Quantidade de visitantes *
           </label>
           <input
             id="membersCount"
             type="number"
             min={1}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-base"
-            placeholder="Ex: 25"
+            placeholder="Ex: 25 pessoas"
             value={form.membersCount}
             onChange={(e) => setForm((f) => ({ ...f, membersCount: e.target.value }))}
           />
@@ -188,13 +188,14 @@ export default function CheckinPage() {
 
         <div>
           <label className="block text-sm font-semibold text-brand-bluedeep mb-1.5" htmlFor="host">
-            UMADALPE Anfitriã
+            Cidade ou congregação de origem *
           </label>
           <input
             id="host"
-            disabled
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-base text-brand-gray"
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 text-base"
+            placeholder="Ex: Maranguape, Congregação Central"
             value={form.hostUmadalpe}
+            onChange={(e) => setForm((f) => ({ ...f, hostUmadalpe: e.target.value }))}
           />
         </div>
 

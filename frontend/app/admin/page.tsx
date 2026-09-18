@@ -132,10 +132,8 @@ export default function AdminPage() {
         <div className="space-y-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              ['UMADALPEs presentes', dashboard.stats.umadalpesPresent],
-              ['Jovens conectados', dashboard.stats.totalYoungConnected],
-              ['Pedidos de oração', dashboard.stats.prayerRequests],
-              ['Marcas no mosaico', dashboard.stats.mosaicMarks],
+              ['UMADALPEs visitantes', dashboard.stats.umadalpesPresent],
+              ['Visitantes no culto', dashboard.stats.totalYoungConnected],
             ].map(([label, value]) => (
               <div key={label as string} className="card-surface p-4">
                 <p className="text-2xl font-display font-bold text-brand-blue">{value as number}</p>
@@ -159,7 +157,8 @@ export default function AdminPage() {
                 <thead>
                   <tr className="text-left text-brand-gray border-b">
                     <th className="py-2 pr-3">UMADALPE</th>
-                    <th className="py-2 pr-3">Componentes</th>
+                    <th className="py-2 pr-3">Origem</th>
+                    <th className="py-2 pr-3">Visitantes</th>
                     <th className="py-2 pr-3">Direção</th>
                     <th className="py-2">Palavra</th>
                   </tr>
@@ -168,6 +167,7 @@ export default function AdminPage() {
                   {dashboard.caravans.map((c: any) => (
                     <tr key={c.id} className="border-b last:border-0">
                       <td className="py-2 pr-3 font-medium text-brand-bluedeep">{c.umadalpeName}</td>
+                      <td className="py-2 pr-3 text-xs text-brand-gray">{c.hostUmadalpe}</td>
                       <td className="py-2 pr-3">{c.membersCount}</td>
                       <td className="py-2 pr-3 text-xs text-brand-gray">
                         {[c.hasDirigente && 'Dirigente', c.hasViceDirigente && 'Vice'].filter(Boolean).join(', ') || '—'}
